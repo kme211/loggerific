@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "forever start index.js",
+    "start": "forever start index.js --minUptime 1000",
     "stop": "forever stopall"
   },
   "author": "Keari Eggers <kungfu.keari@gmail.com>",
