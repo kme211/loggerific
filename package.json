@@ -4,8 +4,8 @@
   "description": "Logs messages to Node.js server",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "prod": "forever start index.js"
+    "dev": "nodemon index.js",
+    "start": "forever start index.js"
   },
   "author": "Keari Eggers <kungfu.keari@gmail.com>",
   "license": "MIT",
