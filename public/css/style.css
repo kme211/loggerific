@@ -1,0 +1,71 @@
+html {
+    font-family: sans-serif;
+    font-size: 16px;
+    background: #4A4A4A;
+    height: 100%;
+}
+
+header {
+    background: #000;
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.5rem;
+}
+
+header a {
+    text-decoration: none;
+    color: inherit;
+}
+
+h1 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: bolder;
+}
+
+body {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    height: 100%;
+    padding: 3rem 2rem 0 2rem;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    padding: 0.5rem 0;
+}
+
+thead {
+    font-weight: bolder;
+}
+
+.sessions__list-item {
+    background: #1D7D81;
+    padding: 0.5rem;
+}
+
+.sessions__list-item a {
+    display: block;
+    color: white;
+    text-decoration: none;
+}
+
+.info {
+    background: rgba(8, 129, 163, 0.5);
+}
+
+.danger {
+    background: rgba(255, 0, 0, 0.5);
+}
+
+.warning {
+    background: rgba(255, 255, 0, 0.5);
+}

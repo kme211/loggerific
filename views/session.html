@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Session</title>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header><a href="/">Loggerific!</a></header>
+    <h1>Messages</h1>
+    <table>
+        <thead>
+            <td>Type</td>
+            <td>Body</td>
+            <td>Timestamp</td>
+        </thead>
+        <tbody>
+            {% for message in messages %}
+            <tr  class={{"danger" if message.body.match(r/error/gi) else "info"}}>
+                <td>{{ message.type }}</td>
+                <td>{{ message.body }}</td>
+                <td>{{ message.date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
