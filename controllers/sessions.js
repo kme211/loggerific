@@ -32,5 +32,6 @@ function getNew(callback) {
 
 module.exports = {
     getAll: getAll,
-    getById: getById
+    getById: getById,
+    getNew: getNew
 };
