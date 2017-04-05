@@ -41,6 +41,7 @@ router.post('/log', function (req, res) {
     if(!session) return handleError(res, `Session with id ${sessionId} not found`);
     session.messages = session.messages.concat(messages);
     session.save((err) => {
+      if(err) return handleError(res, err);
       res.json({ message: 'messages saved successfully' });
     });
   });
