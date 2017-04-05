@@ -14,6 +14,7 @@
     <h1>Messages</h1>
     <div class="table">
         <div class="thead">
+            <div class="cell num">#</div>
             <div class="cell type">Type</div>
             <div class="cell body">Body</div>
             <div class="cell date">Timestamp</div>
@@ -21,7 +22,8 @@
         <div class="tbody">
             {% for message in messages %}
 
-            <div class={{"row-danger" if message.body and message.body.match(r/error/gi) else "row-info"}}>
+            <div id="line-{{loop.index}}" class={{"row-danger" if message.body and message.body.match(r/error/gi) else "row-info"}}>
+                <div class="cell num"><a href="#line-{{loop.index}}">{{loop.index}}</a></div>
                 <div class="cell type">{{ message.type }}</div>
                 <div class="cell body">{{ message.body }}</div>
                 <div class="cell date">{{ message.date }}</div>
