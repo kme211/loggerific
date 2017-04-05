@@ -1,35 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Session</title>
-    <link href="https://fonts.googleapis.com/css?family=Overpass+Mono" rel="stylesheet">
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-    <header><a href="/">Loggerific!</a></header>
-    <h1>Messages</h1>
-    <div class="table">
-        <div class="thead">
-            <div class="cell num">#</div>
-            <div class="cell type">Type</div>
-            <div class="cell body">Body</div>
-            <div class="cell date">Timestamp</div>
-        </div>
-        <div class="tbody">
-            {% for message in messages %}
+{% extends "base.html" %}
 
-            <div id="line-{{loop.index}}" class={{"row-danger" if message.body and message.body.match(r/error/gi) else "row-info"}}>
-                <div class="cell num"><a href="#line-{{loop.index}}">{{loop.index}}</a></div>
-                <div class="cell type">{{ message.type }}</div>
-                <div class="cell body">{{ message.body }}</div>
-                <div class="cell date">{{ message.date }}</div>
-            </div>
-            {% endfor %}
-        </div>
+{% block content %}
+
+<h1>Messages</h1>
+<div class="table">
+    <div class="thead">
+        <div class="cell num">#</div>
+        <div class="cell type">Type</div>
+        <div class="cell body">Body</div>
+        <div class="cell date">Timestamp</div>
     </div>
-</body>
-</html>
+    <div class="tbody">
+        {% for message in messages %}
+
+        <div id="line-{{loop.index}}" class={{"row-danger" if message.body and message.body.match(r/error/gi) else "row-info"}}>
+            <div class="cell num"><a href="#line-{{loop.index}}">{{loop.index}}</a></div>
+            <div class="cell type">{{ message.type }}</div>
+            <div class="cell body">{{ message.body }}</div>
+            <div class="cell date">{{ message.date }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

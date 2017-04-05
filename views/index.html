@@ -1,26 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Loggerific!</title>
-    <link href="https://fonts.googleapis.com/css?family=Overpass+Mono" rel="stylesheet">
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-    <header><a href="/">Loggerific!</a></header>
-    <h1>{{sessions.length}} Sessions</h1>
-    <ul class="sessions__list">
-        {% for session in sessions %}
-        <li class={{"danger" if session.containsErrors else "info"}}>
-            <a href="/session/{{session.id}}">
-                <div class="session__id">Session {{ loop.length - loop.index0 }} @ {{session.date}}</div>
-                <div class="session__num-messages">{{session.numMessages}}</div>
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{sessions.length}} Sessions</h1>
+<ul class="sessions__list">
+    {% for session in sessions %}
+    <li class={{"danger" if session.containsErrors else "info"}}>
+        <a href="/session/{{session.id}}">
+            <div class="session__id">Session {{ loop.length - loop.index0 }} @ {{session.date}}</div>
+            <div class="session__num-messages">{{session.numMessages}}</div>
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
