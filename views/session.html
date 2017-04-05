@@ -19,7 +19,8 @@
         </thead>
         <tbody>
             {% for message in messages %}
-            <tr  class={{"danger" if message.body.match(r/error/gi) else "info"}}>
+
+            <tr  class={{"danger" if message.body and message.body.match(r/error/gi) else "info"}}>
                 <td>{{ message.type }}</td>
                 <td>{{ message.body }}</td>
                 <td>{{ message.date }}</td>

@@ -31,7 +31,7 @@ body {
     max-width: 800px;
     margin: 0 auto;
     background: white;
-    height: 100%;
+    min-height: 100%;
     padding: 3rem 2rem 0 2rem;
 }
 
@@ -59,7 +59,7 @@ thead {
 }
 
 .info {
-    background: rgba(8, 129, 163, 0.5);
+    color: rgba(8, 129, 163, 1);
 }
 
 .danger {
