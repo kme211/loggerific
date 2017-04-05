@@ -2,6 +2,11 @@
 
 Simple back/front end for logging messages to [mlab.com](https://mlab.com) (hosted MongoDB).
 
+## Why?
+
+This is something I created because I needed a way to see log statements from a Flash app. It was going to be tested by multiple people and I 
+wanted a record of their experiences since the app was so dynamic.
+
 ## Getting started
 
 ### Installation
