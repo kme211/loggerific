@@ -55,6 +55,12 @@ You can then send POST request with the session id and your messages to your log
 
 I would suggest batching your messages by using a [debounce](https://davidwalsh.name/javascript-debounce-function) function.
 
+## Viewing messages
+
+Go to `http://yourloggerificserver.com` to view the sessions. You can see how many messages each session has on this screen. Sessions 
+that have a message (or more) with the word "error" (case insensitive) in the body of the message will be hightlighted red(ish).
+You can click on the session to see the messages. Messages with the word "error" in the body will be highlighted.
+
 ## Deploying to Heroku
 
 Follow the [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction) tutorial if you aren't already familiar with Heroku.
