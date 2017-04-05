@@ -52,17 +52,6 @@ thead {
     font-weight: bolder;
 }
 
-.sessions__list-item {
-    background: #1D7D81;
-    padding: 0.5rem;
-}
-
-.sessions__list-item a {
-    display: block;
-    color: white;
-    text-decoration: none;
-}
-
 .sessions__list a {
     text-decoration: none; 
     color: inherit;
