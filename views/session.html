@@ -5,28 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Session</title>
+    <link href="https://fonts.googleapis.com/css?family=Overpass+Mono" rel="stylesheet">
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <header><a href="/">Loggerific!</a></header>
     <h1>Messages</h1>
-    <table>
-        <thead>
-            <td>Type</td>
-            <td>Body</td>
-            <td>Timestamp</td>
-        </thead>
-        <tbody>
+    <div class="table">
+        <div class="thead">
+            <div class="cell type">Type</div>
+            <div class="cell body">Body</div>
+            <div class="cell date">Timestamp</div>
+        </div>
+        <div class="tbody">
             {% for message in messages %}
 
-            <tr  class={{"danger" if message.body and message.body.match(r/error/gi) else "info"}}>
-                <td>{{ message.type }}</td>
-                <td>{{ message.body }}</td>
-                <td>{{ message.date }}</td>
-            </tr>
+            <div class={{"row-danger" if message.body and message.body.match(r/error/gi) else "row-info"}}>
+                <div class="cell type">{{ message.type }}</div>
+                <div class="cell body">{{ message.body }}</div>
+                <div class="cell date">{{ message.date }}</div>
+            </div>
             {% endfor %}
-        </tbody>
-    </table>
+        </div>
+    </div>
 </body>
 </html>
