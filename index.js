@@ -21,7 +21,7 @@ fs.readdirSync(models)
 
 const sessions = require('./controllers/sessions');
 
-mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds151070.mlab.com:51070/${process.env.DB_HOST}`);
+mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}`);
 
 app.use(cors())
 app.use(express.static('public'));
