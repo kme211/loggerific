@@ -13,7 +13,12 @@
     <h1>Sessions</h1>
     <ul class="sessions__list">
         {% for session in sessions %}
-        <li class="sessions__list-item"><a href="/session/{{session.id}}">{{ session.id }} - <span>{{session.numMessages}} messages</span></a></li>
+        <li class={{"danger" if session.containsErrors else "info"}}>
+            <a href="/session/{{session.id}}">
+                <div class="session__id">Session {{ session.id }}</div>
+                <div class="session__num-messages">{{session.numMessages}}</div>
+            </a>
+        </li>
         {% endfor %}
     </ul>
 </body>

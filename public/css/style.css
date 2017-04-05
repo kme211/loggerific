@@ -63,6 +63,20 @@ thead {
     text-decoration: none;
 }
 
+.sessions__list a {
+    text-decoration: none; 
+    color: inherit;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    transition: all 0.4s;
+}
+
+.sessions__list a:hover {
+    background: gray;
+    color: white;
+}
+
 .info {
     color: rgba(8, 129, 163, 1);
 }
