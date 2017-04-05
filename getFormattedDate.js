@@ -9,7 +9,7 @@ function leftPad (num) {
 
 function getFormattedDate(timestamp) {
     const date = new Date(timestamp);
-    const formattedDate = `${leftPad(date.getMonth() + 1)}/${leftPad(date.getDate())}/${date.getFullYear()} ${leftPad(date.getHours() + 1)}:${leftPad(date.getMinutes())}`
+    const formattedDate = `${leftPad(date.getMonth() + 1)}/${leftPad(date.getDate())}/${date.getFullYear()} ${leftPad(date.getHours())}:${leftPad(date.getMinutes())}`
     return formattedDate;
 }
 
