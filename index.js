@@ -9,6 +9,7 @@ mongoose.Promise = global.Promise;
 const bodyParser = require('body-parser');
 const models = join(__dirname, 'models');
 const nunjucks = require('nunjucks');
+const getFormattedDate = require('./getFormattedDate');
 
 const port = process.env.PORT || 3000;
 var db = mongoose.connection;
@@ -38,7 +39,9 @@ app.get('/', function(req, res) {
   sessions.getAll((err, sessions) => {
     res.render('index.html', {
       error: err,
-      sessions: sessions
+      sessions: sessions.map(session => {
+        return Object.assign({}, session, { date: getFormattedDate(session.date) });
+      })
     });
   });
 });
@@ -49,17 +52,7 @@ app.get('/session/:id', function(req, res) {
     res.render('session.html', {
       error: err,
       messages: session.messages.map(message => {
-        const date = new Date(message.date);
-        const leftPad = (num) => {
-          num = num.toString();
-          if(num.length === 1) {
-            return '0' + num;
-          } else {
-            return num;
-          }
-        }
-        const formattedDate = `${leftPad(date.getMonth() + 1)}/${leftPad(date.getDate())}/${date.getFullYear()} @ ${leftPad(date.getHours() + 1)}:${leftPad(date.getMinutes())}`
-        return Object.assign({}, message, { date: formattedDate });
+        return Object.assign({}, message, { date: getFormattedDate(message.date) });
       }),
       date: session.date
     });
