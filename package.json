@@ -4,7 +4,7 @@
   "description": "Logs messages to Node.js server",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js --watch views index.js -e js,html",
+    "dev": "nodemon index.js -e js,html  ",
     "start": "node index.js"
   },
   "author": "Keari Eggers <kungfu.keari@gmail.com>",
