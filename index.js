@@ -63,6 +63,6 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log(`Connected to db ${process.env.DB_HOST}`);
   app.listen(port, function () {
-    console.log(`Loggerific listening on port ${port}!`);
+    console.log(`Loggerific listening on http://localhost:${port}/`);
   });
 });
