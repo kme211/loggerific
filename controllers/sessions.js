@@ -9,10 +9,14 @@ function getAll(callback) {
     exec((err, sessions) => {
       if(err) return callback(err);
       callback(null, sessions.map((session) => {
-          const hasError = (message) => {
-            return message.body && message.body.length > 0 ? /error/i.test(message.body) : false;
+          const getError = (message, index) => {
+            const error = /error/i.test(message.body) ? { message: message.body.split('\n')[0], line: index + 1 } : null;
+            return error;
           };
-          return { id: session._id, date: session.date,  numMessages: session.messages.length, containsErrors: session.messages.some(hasError) };
+          const hasError = (message) => message.error;
+          const getErrors = (messages) => messages.map(getError).filter((error) => error);
+          const errors = getErrors(session.messages);
+          return { id: session._id, date: session.date,  numMessages: session.messages.length, errors };
         }));
     });
 }

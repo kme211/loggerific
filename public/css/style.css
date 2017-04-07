@@ -43,6 +43,16 @@ body {
     padding: 2rem 0 0 0;
 }
 
+
+.icon {
+  display: inline-block;
+  width: .8em;
+  height: .8em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
 .table {
     width: 100%;
 }
