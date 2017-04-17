@@ -35,11 +35,32 @@ nunjucks.configure('views', {
 
 app.use('/api', require('./routes/api'));
 
+const pageSize = 15;
+
 app.get('/', function(req, res) {
-  sessions.getAll((err, sessions) => {
+  
+  sessions.getAll({ pageSize: pageSize, startPage: 0 }).then((data) => {
+    const totalPages = Math.ceil(data.totalSessions / pageSize);
     res.render('index.html', {
-      error: err,
-      sessions: sessions.map(session => {
+      pageNum: 1,
+      totalPages: totalPages,
+      totalSessions: data.totalSessions,
+      sessions: data.sessions.map(session => {
+        return Object.assign({}, session, { date: getFormattedDate(session.date) });
+      })
+    });
+  });
+});
+
+app.get('/:page', function(req, res) {
+  const pageNum = req.params.page;
+  sessions.getAll({ pageSize: pageSize, startPage: +pageNum - 1 }).then((data) => {
+    const totalPages = Math.ceil(data.totalSessions / pageSize);
+    res.render('index.html', {
+      pageNum: pageNum,
+      totalPages: totalPages,
+      totalSessions: data.totalSessions,
+      sessions: data.sessions.map(session => {
         return Object.assign({}, session, { date: getFormattedDate(session.date) });
       })
     });
