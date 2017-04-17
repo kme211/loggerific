@@ -52,7 +52,7 @@ app.get('/', function(req, res) {
   });
 });
 
-app.get('/:page', function(req, res) {
+app.get('/page/:page', function(req, res) {
   const pageNum = req.params.page;
   sessions.getAll({ pageSize: pageSize, startPage: +pageNum - 1 }).then((data) => {
     const totalPages = Math.ceil(data.totalSessions / pageSize);
@@ -61,6 +61,17 @@ app.get('/:page', function(req, res) {
       totalPages: totalPages,
       totalSessions: data.totalSessions,
       sessions: data.sessions.map(session => {
+        return Object.assign({}, session, { date: getFormattedDate(session.date) });
+      })
+    });
+  });
+});
+
+app.get('/errors', function(req, res) {
+  sessions.getAllWithErrors().then((sessions) => {
+    res.render('errors.html', {
+      totalSessions: sessions.length,
+      sessions: sessions.map(session => {
         return Object.assign({}, session, { date: getFormattedDate(session.date) });
       })
     });

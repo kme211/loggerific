@@ -14,6 +14,14 @@ function getAll({ pageSize, startPage }) {
     });
 }
 
+function getErrors(messages) {
+    const getError = (message, index) => {
+        const error = /error/i.test(message.body) ? { message: message.body.split('\n')[0], line: index + 1 } : null;
+        return error;
+    };
+    return messages.map(getError).filter((error) => error);
+}
+
 function getAllSessions({ pageSize, startPage }) {
     return new Promise((resolve, reject) => {
         Session
@@ -24,17 +32,28 @@ function getAllSessions({ pageSize, startPage }) {
             .exec((err, data) => {
                 if(err) reject(err);
                 const sessions = data.map((session) => {
-                    const getError = (message, index) => {
-                        const error = /error/i.test(message.body) ? { message: message.body.split('\n')[0], line: index + 1 } : null;
-                        return error;
-                    };
-                    const hasError = (message) => message.error;
-                    const getErrors = (messages) => messages.map(getError).filter((error) => error);
                     const errors = getErrors(session.messages);
-                    return { id: session._id, date: session.date,  numMessages: session.messages.length, errors };
+                    return { id: session._id, date: session.date, numMessages: session.messages.length, errors };
                 });
                 resolve(sessions);
             });
+    });
+}
+
+function getAllWithErrors() {
+    return new Promise((resolve, reject) => {
+        Session
+            .find()
+            .where({ hasError: true })
+            .sort({ date: -1 })
+            .exec((err, data) => {
+                if(err) reject(err);
+                const sessions = data.map((session) => {
+                    const errors = getErrors(session.messages);
+                    return { id: session._id, date: session.date, numMessages: session.messages.length, errors };
+                });
+                resolve(sessions);
+            })
     });
 }
 
@@ -66,5 +85,6 @@ function getNew(callback) {
 module.exports = {
     getAll: getAll,
     getById: getById,
-    getNew: getNew
+    getNew: getNew,
+    getAllWithErrors: getAllWithErrors
 };

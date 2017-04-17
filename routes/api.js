@@ -34,12 +34,14 @@ router.post('/log', function (req, res) {
   if(!req.body.messages) return handleError(res, 'no messages found in body');
   if(!req.body.sessionId) return handleError(res, 'no sessionId found in body');
   const messages = req.body.messages;
+  const hasError = messages.some((message) =>  /error/i.test(message.body));
   const sessionId = req.body.sessionId;
 
   sessions.getById(sessionId, (err, session) => {
     if(err) return handleError(res, err);
     if(!session) return handleError(res, `Session with id ${sessionId} not found`);
     session.messages = session.messages.concat(messages);
+    if(hasError) session.hasError = true;
     session.save((err) => {
       if(err) return handleError(res, err);
       res.json({ message: 'messages saved successfully' });
