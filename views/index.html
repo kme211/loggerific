@@ -8,8 +8,8 @@
     {% for session in sessions %}
     <li class={{"danger" if session.errors.length else "info"}}>
         <a href="/session/{{session.id}}">
-            <div class="session__id">Session {{ session.id }} @ {{session.date}}</div>
-            <div class="session__num-messages">{{session.numMessages}}</div>
+            <div class="session__info">Session {{ session.id }} <span class="session__num-messages">{{session.numMessages}} messages</span></div>
+            <div>{{h.moment(session.date).fromNow()}}</div>
         </a>
         {% for error in session.errors %}
         

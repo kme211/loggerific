@@ -141,6 +141,30 @@ body {
     background: rgba(255, 255, 0, 0.5);
 }
 
+.session__info {
+    position: relative;
+}
+
+.session__num-messages {
+    position: relative;
+    z-index: 2;
+    /*padding: 4px 2px;
+    background: #d3d3d3;
+    border-radius: 3px;*/
+}
+
+.session__num-messages:after {
+    position: absolute;
+    width: 105%;
+    height: 115%;
+    left: -3%;
+    top: -16%;
+    background: #d3d3d3;
+    content: '';
+    z-index: -1;
+    border-radius: 3px;
+}
+
 .pagination {
     margin: 1rem 0;
     color: rgba(8, 129, 163, 1);

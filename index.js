@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 const models = join(__dirname, 'models');
 const nunjucks = require('nunjucks');
 const getFormattedDate = require('./getFormattedDate');
+const helpers = require('./helpers');
 
 const port = process.env.PORT || 3000;
 var db = mongoose.connection;
@@ -19,6 +20,11 @@ fs.readdirSync(models)
   .filter(file => ~file.search(/^[^\.].*\.js$/))
   .forEach(file => require(join(models, file)));
 
+nunjucks.configure('views', {
+    autoescape: true,
+    express: app
+});
+
 const sessions = require('./controllers/sessions');
 
 mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}`);
@@ -27,10 +33,9 @@ app.use(cors())
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-nunjucks.configure('views', {
-    autoescape: true,
-    express: app
+app.use((req, res, next) => {
+  res.locals.h = helpers;
+  next();
 });
 
 app.use('/api', require('./routes/api'));
@@ -45,9 +50,7 @@ app.get('/', function(req, res) {
       pageNum: 1,
       totalPages: totalPages,
       totalSessions: data.totalSessions,
-      sessions: data.sessions.map(session => {
-        return Object.assign({}, session, { date: getFormattedDate(session.date) });
-      })
+      sessions: data.sessions
     });
   });
 });
