@@ -27,7 +27,7 @@ nunjucks.configure('views', {
 
 const sessions = require('./controllers/sessions');
 
-mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}`);
+mongoose.connect(process.env.DATABASE);
 
 app.use(cors())
 app.use(express.static('public'));
@@ -96,7 +96,7 @@ app.get('/session/:id', function(req, res) {
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log(`Connected to db ${process.env.DB_HOST}`);
+  console.log(`Connected to db`);
   app.listen(port, function () {
     console.log(`Loggerific listening on http://localhost:${port}/`);
   });
