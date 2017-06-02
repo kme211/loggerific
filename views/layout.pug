@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title= `${title} | ${h.siteName}`
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Overpass+Mono")
+    link(rel='stylesheet', href='/css/reset.css')
+    link(rel='stylesheet', href='/css/style.css')
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+  body
+    block header
+      header
+        a(href="/")= h.siteName
+        a(href="/add-session") Add session
+        a(href="/errors") Errors
+
+    block content

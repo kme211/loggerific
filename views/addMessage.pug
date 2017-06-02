@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1 Add message
+  form(action="/add-message" method="POST")
+    input(type="text" name="sessionId" value=sessionId hidden)
+    label(for="type") Type
+    input(type="text" name="type")
+    label(for="body") Body
+    input(type="text" name="body")
+    input(type="submit" value="Save →")

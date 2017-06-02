@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1 #{totalSessions} Sessions
+  h2 Page #{pageNum} of #{totalPages}
+
+  ul.sessions__list
+    for session in sessions
+      li(class=`${session.errors.length ? 'danger' : 'info'}`)
+        a(href=`/session/${session._id}`)
+          .session__info= `Session ${session._id} ` 
+            span.session__num-messages=`${session.messages.length} messages`
+          div= h.moment(session.date).fromNow()
+        if session.errors.length
+          each error in session.errors
+            a(href=`/session/${session._id}#line-${error.line}` class="error-preview")
+              span= `Line ${error.line}: ${error.body.split('\n')[0]}` 
+  
+  - var page = 1;
+  ol.pagination
+    while page < totalPages + 1
+      li
+        a(href=`/index.html?page=${page}` class=`${page === pageNum ? 'active' : ''} page`)= page
+        - page++

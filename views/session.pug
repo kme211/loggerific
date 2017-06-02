@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1 Messages
+  a(href=`/add-message/${session._id}`) Add message
+  .table
+    .thead
+      div(class="cell num") #
+      div(class="cell type") Type
+      div(class="cell body") Body
+      div(class="cell date") Timestamp
+    .tbody
+      each message in session.messages
+        div(id=`line-${message.line}` class=`${message.body && message.body.match(/error/gi) ? 'row-danger' : 'row-info'}`)
+          div(class="cell num")
+            a(href=`#line-${message.line}`)= message.line
+          div(class="cell type")= message.type
+          div(class="cell body")= message.body
+          div(class="cell date")= h.moment(message.timestamp.toISOString(), h.moment.ISO_8601).format('MMMM Do YYYY, h:mm:ss a')

@@ -99,7 +99,7 @@ body {
 }
 
 .cell.date {
-    flex: 1 1;
+    flex: 2 2;
     text-align: right;
 }
 
@@ -202,4 +202,20 @@ body {
 .pagination .page:hover {
     background: gray;
     color: white;
+}
+
+form {
+    margin: 0 auto;
+    max-width: 400px;
+}
+
+form > label,
+form > input:not([hidden]) {
+    width: 100%;
+    display: block;
+}
+
+form > input {
+    padding: 4px 2px;
+    margin-bottom: 1em;
 }
