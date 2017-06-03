@@ -1,3 +1,16 @@
+exports.catchErrors = (fn) => {
+  return function(req, res, next) {
+    return fn(req, res, next).catch(next); // pass errors into next
+  };
+};
+
+exports.flashValidationErrors = (err, req, res, next) => {
+  if (!err.errors) return next(err);
+  const errorKeys = Object.keys(err.errors);
+  errorKeys.forEach(key => req.flash('error', err.errors[key].message));
+  res.redirect('back');
+};
+
 exports.developmentErrors = (err, req, res, next) => {
   err.stack = err.stack || '';
   const errorDetails = {
@@ -12,5 +25,14 @@ exports.developmentErrors = (err, req, res, next) => {
       res.render('error', errorDetails);
     }, // Form Submit, Reload the page
     'application/json': () => res.json(errorDetails) // Ajax call, send JSON back
+  });
+};
+
+exports.productionErrors = (err, req, res, next) => {
+  res.status(err.status || 500);
+  res.render('error', {
+    title: 'Error!',
+    message: err.message,
+    error: {}
   });
 };

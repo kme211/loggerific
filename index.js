@@ -1,8 +1,11 @@
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
-const join = require('path').join
+const join = require('path').join;
+const flash = require('connect-flash');
 const express = require('express');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const cors = require('cors');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -32,17 +35,32 @@ app.use(cors())
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(session({
+  secret: process.env.SECRET,
+  key: process.env.KEY,
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
+}));
+
+app.use(flash());
 app.use((req, res, next) => {
   res.locals.h = helpers;
+  res.locals.flashes = req.flash();
   next();
 });
 
 app.use('/', routes);
 
+app.use(errorHandlers.flashValidationErrors);
+
 if (ENV === 'DEV') {
   /* Development Error Handler - Prints stack trace */
   app.use(errorHandlers.developmentErrors);
 }
+
+app.use(errorHandlers.productionErrors);
 
 // app.get('/', function(req, res) {
   

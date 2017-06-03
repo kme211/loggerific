@@ -1,18 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const sessionController = require('../controllers/sessionController');
+const { catchErrors } = require('../handlers/errorHandlers');
 
-router.get('/', sessionController.getSessions);
+router.get('/', catchErrors(sessionController.getSessions));
 router.get('/add-session', sessionController.addSession);
 router.post('/add-session', 
   sessionController.formatDate,
-  sessionController.createSession
+  catchErrors(sessionController.createSession)
 );
-router.get('/session/:id', sessionController.getSessionById);
+router.get('/session/:id', catchErrors(sessionController.getSessionById));
 router.get('/add-message/:sessionId', sessionController.addMessageToSession);
 router.post('/add-message', 
   sessionController.addTimestamp, 
-  sessionController.createMessage
+  catchErrors(sessionController.createMessage)
 );
+router.get('/delete-session/:id', catchErrors(sessionController.deleteSession));
 
 module.exports = router;

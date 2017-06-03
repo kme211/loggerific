@@ -37,7 +37,8 @@ exports.addSession = (req, res) => {
 
 exports.createSession = async (req, res) => {
   const session = await (new Session(req.body)).save();
-  res.redirect('/');
+  req.flash('success', 'Session created!');
+  res.redirect(`/session/${session._id}`);
 };
 
 exports.getSessionById = async (req, res) => {
@@ -55,11 +56,23 @@ exports.addTimestamp = (req, res, next) => {
 };
 
 exports.createMessage = async (req, res, next) => {
-  console.log(req.body)
-  const session = await Session.findById(req.body.sessionId);
-  console.log(session)
+  console.log('createMessage', req.body.sessionId)
+  const session = await Session.find({ _id: req.body.sessionId });
+  if(!session) {
+    console.log('no session found!');
+    req.flash('error', 'That session doesn\'t exist!');
+    res.redirect('/');
+    return;
+  }
+  console.log('ehh')
   req.body.line = session.messages.length + 1;
   session.messages = session.messages.concat(req.body);
   await session.save();
   res.redirect('/session/' + req.body.sessionId);
 };
+
+exports.deleteSession = async (req, res) => {
+  const session = await Session.findByIdAndRemove(req.params.id);
+  req.flash('success', 'Session removed!');
+  res.redirect('/');
+}

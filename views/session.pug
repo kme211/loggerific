@@ -2,7 +2,8 @@ extends layout
 
 block content
   h1 Messages
-  a(href=`/add-message/${session._id}`) Add message
+  a(href=`/add-message/${session._id}` class="button") Add message
+  a(href=`/delete-session/${session._id}` class="button") Delete session
   .table
     .thead
       div(class="cell num") #

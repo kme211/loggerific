@@ -61,6 +61,18 @@ body {
     box-shadow:         0px 0px 4px 0px rgba(50, 50, 50, 0.75);
 }
 
+.inner {
+  max-width:900px;
+  margin: 0 auto;
+  
+}
+
+@media all and (max-width: 900px) {
+    .inner {
+        padding: 2rem;
+    }
+}
+
 .icon {
   display: inline-block;
   width: .8em;
@@ -218,4 +230,51 @@ form > input:not([hidden]) {
 form > input {
     padding: 4px 2px;
     margin-bottom: 1em;
+}
+
+.flash {
+    background: white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    margin-bottom: 2rem;
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+    border-radius: 3px;
+    display: flex;
+}
+
+.flash__text {
+    flex: 1;
+}
+
+.flash:after {
+    content: '';
+    display: block;
+    background: white;
+    position: absolute;
+    width: calc(100% - 16px);
+    height: calc(100% - 16px);
+    top: 8px;
+    left: 8px;
+    z-index: -1;
+    box-shadow: 0 0 2px 2px rgba(0,0,0,0.1);
+    border-radius: 3px;
+  }
+
+.flash__remove {
+    background: none;
+    border:0; 
+}
+
+.flash--success {
+    background: greenyellow;
+}
+.flash--error {
+    background: red;
+}
+.flash--info {
+    background: blue;
+}
+.flash p {
+    margin: 0;
 }
